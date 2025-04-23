@@ -2,7 +2,6 @@ package br.com.alura.adopet.api.model;
 
 import jakarta.persistence.*;
 
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -19,8 +18,14 @@ public class Abrigo {
 
     private String email;
 
-    @OneToMany(mappedBy = "abrigo", cascade = CascadeType.ALL)
-    private List<Pet> pets;
+    public Abrigo() {
+    }
+
+    public Abrigo(String nome, String email, String telefone) {
+        this.nome = nome;
+        this.email = email;
+        this.telefone = telefone;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -67,11 +72,4 @@ public class Abrigo {
         this.email = email;
     }
 
-    public List<Pet> getPets() {
-        return pets;
-    }
-
-    public void setPets(List<Pet> pets) {
-        this.pets = pets;
-    }
 }

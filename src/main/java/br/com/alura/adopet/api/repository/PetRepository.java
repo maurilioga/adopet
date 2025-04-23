@@ -1,10 +1,16 @@
 package br.com.alura.adopet.api.repository;
 
+import br.com.alura.adopet.api.model.Abrigo;
 import br.com.alura.adopet.api.model.Pet;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
 
 public interface PetRepository extends JpaRepository<Pet, Long> {
 
     boolean getAdotadoById(Long idPet);
+
+    List<Pet> findByAdotadoFalse();
+
+    List<Pet> findByAbrigo(Abrigo abrigo);
 }

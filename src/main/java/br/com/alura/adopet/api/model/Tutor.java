@@ -1,5 +1,7 @@
 package br.com.alura.adopet.api.model;
 
+import br.com.alura.adopet.api.dto.DadosAtualizacaoTutorDTO;
+import br.com.alura.adopet.api.dto.DadosCadastroTutorDTO;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -21,6 +23,15 @@ public class Tutor {
 
     @OneToMany(mappedBy = "tutor")
     private List<Adocao> adocoes;
+
+    public Tutor() {
+    }
+
+    public Tutor(DadosCadastroTutorDTO dadosCadastroTutor) {
+        this.nome = dadosCadastroTutor.nome();
+        this.telefone = dadosCadastroTutor.telefone();
+        this.email = dadosCadastroTutor.email();
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -73,5 +84,21 @@ public class Tutor {
 
     public void setAdocoes(List<Adocao> adocoes) {
         this.adocoes = adocoes;
+    }
+
+    public void atualizar(DadosAtualizacaoTutorDTO dadosAtualizacaoTutor) {
+
+        if (dadosAtualizacaoTutor.nome() != null) {
+            this.nome = dadosAtualizacaoTutor.nome();
+        }
+
+        if (dadosAtualizacaoTutor.telefone() != null) {
+            this.telefone = dadosAtualizacaoTutor.telefone();
+        }
+
+        if (dadosAtualizacaoTutor.email() != null) {
+            this.email = dadosAtualizacaoTutor.email();
+        }
+
     }
 }

@@ -69,6 +69,10 @@ public class Adocao {
         return pet;
     }
 
+    public String getMotivo() {
+        return motivo;
+    }
+
     public StatusAdocao getStatus() {
         return status;
     }

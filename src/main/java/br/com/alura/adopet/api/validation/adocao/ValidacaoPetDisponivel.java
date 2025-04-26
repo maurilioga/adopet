@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class ValidacaoPetDisponivel implements ValidacaoAdocao{
 
     @Autowired
-    PetRepository petRepository;
+    private PetRepository petRepository;
 
     public void validar(SolicitacaoAdocaoDTO solicitacaoAdocao) {
 

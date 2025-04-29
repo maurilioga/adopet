@@ -40,4 +40,6 @@ O projeto desse repositório foi desenvolvido por [Alura](https://www.alura.com.
 
 Instrutor: [Rodrigo Ferreira](https://cursos.alura.com.br/user/rodrigo-ferreira)
 
+Aluno: [Maurilio Gonçalves Arantes](https://github.com/maurilioga)
+
 ---

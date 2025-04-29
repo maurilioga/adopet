@@ -1,6 +1,6 @@
 package br.com.alura.adopet.api.controller;
 
-import br.com.alura.adopet.api.service.AdocaoService;
+import br.com.alura.adopet.api.service.TutorService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -9,27 +9,49 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class AdocaoControllerTest {
+class TutorControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
-    private AdocaoService adocaoService;
+    private TutorService tutorService;
 
     @Test
-    void testSolicitarAdocaoBadRequest() throws Exception {
+    void testCadastrarTutorOk() throws Exception {
 
-        String json = "{}";
+        String json = """
+                {
+                    "nome": "Fulano da Silva",
+                    "telefone": "61900000000",
+                    "email": "fulano@email.com.br"
+                }
+                """;
 
         var response = mockMvc.perform(
-                post("/adocoes")
+                post("/tutores")
+                        .content(json)
+                        .contentType(MediaType.APPLICATION_JSON)
+        ).andReturn().getResponse();
+
+        assertEquals(200, response.getStatus());
+    }
+
+    @Test
+    void testCadastrarTutorBadRequest() throws Exception {
+
+        String json = """
+                {}
+                """;
+
+        var response = mockMvc.perform(
+                post("/tutores")
                         .content(json)
                         .contentType(MediaType.APPLICATION_JSON)
         ).andReturn().getResponse();
@@ -38,60 +60,23 @@ class AdocaoControllerTest {
     }
 
     @Test
-    void testSolicitarAdocaoOk() throws Exception {
+    void testAtualizarTutorOk() throws Exception {
 
         String json = """
                 {
-                    "idPet": 1,
-                    "idTutor": 1,
-                    "motivo": "Motivo qualquer"
+                    "id": 1,
+                    "nome": "Fulano da Silva 2",
+                    "telefone": "61900000001",
+                    "email": "fulano2@email.com.br"
                 }
                 """;
 
         var response = mockMvc.perform(
-                post("/adocoes")
+                put("/tutores")
                         .content(json)
                         .contentType(MediaType.APPLICATION_JSON)
         ).andReturn().getResponse();
 
         assertEquals(200, response.getStatus());
     }
-
-    @Test
-    void testAprovarAdocao() throws Exception {
-
-        String json = """
-                {
-                    "idAdocao": 1
-                }
-                """;
-
-        var response = mockMvc.perform(
-                put("/adocoes/aprovar")
-                        .content(json)
-                        .contentType(MediaType.APPLICATION_JSON)
-        ).andReturn().getResponse();
-
-        assertEquals(200, response.getStatus());
-    }
-
-    @Test
-    void testReprovarAdocao() throws Exception {
-
-        String json = """
-                {
-                    "idAdocao": 1,
-                    "justificativa": "Justificativa qualquer"
-                }
-                """;
-
-        var response = mockMvc.perform(
-                put("/adocoes/reprovar")
-                        .content(json)
-                        .contentType(MediaType.APPLICATION_JSON)
-        ).andReturn().getResponse();
-
-        assertEquals(200, response.getStatus());
-    }
-
 }

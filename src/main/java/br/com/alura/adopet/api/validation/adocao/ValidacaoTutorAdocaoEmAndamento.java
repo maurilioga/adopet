@@ -14,9 +14,6 @@ public class ValidacaoTutorAdocaoEmAndamento implements ValidacaoAdocao{
     @Autowired
     AdocaoRepository adocaoRepository;
 
-    @Autowired
-    TutorRepository tutorRepository;
-
     public void validar(SolicitacaoAdocaoDTO solicitacaoAdocao) {
 
         if(adocaoRepository.existsByTutorIdAndStatus(solicitacaoAdocao.idTutor(), StatusAdocao.AGUARDANDO_AVALIACAO)) {
